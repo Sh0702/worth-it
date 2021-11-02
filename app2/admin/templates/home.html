@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home Page</title>
+	<!--Bootsrap 4 CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    <!--Fontawesome CDN-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+	<!--Custom styles-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('Home.static',filename='home.css') }}">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+    <div id="mySidepanel" class="sidepanel">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <a href="/admin/homepage/{{id}}">Home</a>
+        <a href="/admin/asset/{{id}}">Assets</a>
+        <a href="/admin/income/{{id}}">Income</a>
+        <a href="/admin/expenditure/{{id}}">Expenditure</a>
+        <a href="/admin/liability/{{id}}">Liabilities</a>
+        <a href="{{url_for('logout')}}"><button type="button" name="logout">Log Out</button></a>
+</div>
+
+
+<div id="main">
+    <button class="openbtn" onclick="openNav()">&#9776; Dashboard</button>
+<div class="container-fluid">
+    <br><br><br></br></br></br>
+    <form action="{{url_for('Home.update',id=id)}}" method="POST">
+        <div class="d-flex justify-content-center">
+            <p>WELCOME !!!</p>
+        </div>
+        <div class="d-flex justify-content-center">
+            <p>To Enter or Update your Asset/Liabilities/Income/Expenditure details or Logout, go to Dashboard.</p>
+        </div>
+        <div class="d-flex justify-content-center">
+            <p>Enter number of years you want to check your networth in. Click on Update button.</p>
+        </div>
+        <div class="d-flex justify-content-center">
+            <p>Wait for the "Updates Successfull !!!" message and then click on Go button to check networth</p>
+        </div>
+        <div class="d-flex justify-content-center">
+            <select id = "ddlModels"  name= "Years">
+                <option value = "0">0 Years(Current Net Worth)</option>
+                <option value = "1">1</option>
+                <option value = "2">2</option>
+                <option value = "3">3</option>
+                <option value = "4">4</option>
+                <option value = "5">5</option>
+            </select>
+        </div>
+        <div class="d-flex justify-content-center">
+            <input type="submit" class = "btn float-right" value="Update"><br></br>
+            <p style="color:black">{{msg}}</p>
+        </div>
+    </form>
+    <br></br>
+    <div class="d-flex justify-content-center">
+        <a href="{{url_for('Home.go',id=id)}}">
+            <button id="submit" type="btn btn-info" name="Go">Go</button>
+            <table class="table table-striped table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">Total Asset Value</th>
+                    <th scope="col">Total Liability Value</th>
+                    <th scope="col">Total Income Value</th>
+                    <th scope="col">Total Expenditure Value</th>
+                    <th scope="col">Total Net Worth</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {%for i in rec_display%}
+                    <tr>
+                        <td>{{i['assettotal']}}</td>
+                        <td>{{i['liabilitytotal']}}</td>
+                        <td>{{i['incometotal']}}</td>
+                        <td>{{i['expendituretotal']}}</td>
+                        <td>{{i['networth']}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </a>
+    </div>
+</div>
+
+<!-- jQuery CDN - Slim version (=without AJAX) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<!-- Popper.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<!-- jQuery Custom Scroller CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<script type="text/javascript">
+
+    //Navigation
+    //open
+    function openNav() 
+    {
+        document.getElementById("mySidepanel").style.width = "250px";
+    }
+    //close
+    function closeNav() 
+    {
+        document.getElementById("mySidepanel").style.width = "0";
+    }
+</script>
+
+</body>
+</html>

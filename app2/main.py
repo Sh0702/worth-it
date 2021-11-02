@@ -119,7 +119,7 @@ def changepassword(id):
             return render_template('login.html',msg1=msg1)
         else:
             msg = 'Passwords do not match'
-            return render_template('changepassword.html',id=id)
+            return render_template('changepassword.html',id=id,msg=msg)
 
 if __name__ == '__main__':
     app.debug = True
